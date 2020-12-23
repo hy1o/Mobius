@@ -161,7 +161,7 @@ namespace Mobius
         int GetPModePrediction(Block subblock)
         {
             var index = (subblock.OffsetY & 0xC) | (subblock.OffsetX / 4 % 4);
-            var val = (byte)Math.Min(_pre[index], index % 4 == 0 ? 9 : _pre[index + 3]);
+            byte val = (byte)Math.Min(_pre[index], (byte)(index % 4 == 0 ? 9 : _pre[index + 3]));
             if (val == 9) val = 3;
 
             if (!br.Pop())

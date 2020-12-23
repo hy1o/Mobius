@@ -57,7 +57,7 @@ namespace Mobius
             var decoderV = new MobiDecoder(headerV.Width, headerV.Height);
             var pipeName = $"mobius{decoderA?.GetType()?.Name}";
 
-            var stereoFilter = string.IsNullOrEmpty(headerV.Stereo) ? "" : $"-vf stereo3d={headerV.Stereo}:{stereoTarget}";
+            var stereoFilter = string.IsNullOrEmpty(headerV.Stereo) ? "" : $"-vf \"stereo3d={headerV.Stereo}:{stereoTarget}, setpts=0.5*PTS\"";
             var inputArgsA = headerA is null ? "" :
                 $@"-thread_queue_size {maxQueueSize} -guess_layout_max 0 -f s16le -ar {headerA.Frequency} -ac {headerA.Channels} -i \\.\pipe\{pipeName}";
             var inputArgsV = $@"-thread_queue_size {maxQueueSize} -f rawvideo -pix_fmt yuv420p -r {headerV.Fps} -s {headerV.Width}x{headerV.Height} -i -";
